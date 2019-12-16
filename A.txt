@@ -1,0 +1,3 @@
+el programa originalmente tarda 16 mseg, pero con índices tarda entre 200 y 240.
+El índice con el que menos tarda es con el de customerid. Hemos probado con índices
+en orders.totalamount, orders.customerid y en orders.orderdate
