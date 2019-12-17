@@ -1,2 +1,8 @@
-la primera devuelve resultados nada más comenzar
-la segunda se puede beneficiar de la ejecución en paralelo, pues comprueba cada vez los estados de los pedidos
+En la primera consulta se busca en una query interna  para después
+usar el select customerid.
+
+En la segunda consulta se usa el union all para juntar ambas subqueries,
+y finalmente buca las que tengan el count(*)=1. Es la que menos tarda en
+empezar a imprimir.
+
+En la última consulta hace dos queries y después usa el except.
