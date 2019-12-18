@@ -17,27 +17,43 @@ def dbCloseConnect(db_conn):
 def getListaCliMes(db_conn, mes, anio, iumbral, iintervalo, use_prepare, break0, niter):
 
     # TODO: implementar la consulta; asignar nombre 'cc' al contador resultante
-    consulta = " ... "
+    consulta2 = "select count(num) as cc from (select count(*)as num from orders where totalamount >= $1 and extract (year from orderdate)="+str(anio)+" and extract (month from orderdate) ="+str(mes)+" group by extract (year from orderdate),extract (month from orderdate) ,customerid) as a;"
     
     # TODO: ejecutar la consulta 
     # - mediante PREPARE, EXECUTE, DEALLOCATE si use_prepare es True
     # - mediante db_conn.execute() si es False
+    if use_prepare is True:
+        consulta2 = "prepare getLClimes (int) as "+consulta2
+        resultado = db_conn.execute(consulta2)
+
+    
 
     # Array con resultados de la consulta para cada umbral
     dbr=[]
 
     for ii in range(niter):
-
         # TODO: ...
+        if use_prepare is True:
+            resultado = db_conn.execute("execute getLClimes("+str(iumbral)+")")
 
+        else:
+            consulta = "select count(num) as cc from (select count(*)as num from orders where totalamount >="+str(iumbral)+" and extract (year from orderdate)="+str(anio)+" and extract (month from orderdate) ="+str(mes)+" group by extract (year from orderdate),extract (month from orderdate) ,customerid) as a;"
+            resultado = db_conn.execute(consulta)
+        
+        res = resultado.fetchall()[0][0]
         # Guardar resultado de la query
-        dbr.append({"umbral":iumbral,"contador":res['cc']})
+        dbr.append({"umbral":iumbral,"contador":res})
 
         # TODO: si break0 es True, salir si contador resultante es cero
+        if break0 is True and res == 0:
+            break
+
         
         # Actualizacion de umbral
         iumbral = iumbral + iintervalo
-                
+    if use_prepare is True:
+        resultado = db_conn.execute("dealocate getLClimes")
+            
     return dbr
 
 def getMovies(anio):
@@ -76,27 +92,27 @@ def getCustomer(username, password):
     else:
         return {'firstname': res['firstname'], 'lastname': res['lastname']}
     
-def delCustomer(customerid, bFallo, bSQL, duerme, bCommit):
+# def delCustomer(customerid, bFallo, bSQL, duerme, bCommit):
     
-    # Array de trazas a mostrar en la página
-    dbr=[]
+#     # Array de trazas a mostrar en la página
+#     dbr=[]
 
-    # TODO: Ejecutar consultas de borrado
-    # - ordenar consultas según se desee provocar un error (bFallo True) o no
-    # - ejecutar commit intermedio si bCommit es True
-    # - usar sentencias SQL ('BEGIN', 'COMMIT', ...) si bSQL es True
-    # - suspender la ejecución 'duerme' segundos en el punto adecuado para forzar deadlock
-    # - ir guardando trazas mediante dbr.append()
+#     # TODO: Ejecutar consultas de borrado
+#     # - ordenar consultas según se desee provocar un error (bFallo True) o no
+#     # - ejecutar commit intermedio si bCommit es True
+#     # - usar sentencias SQL ('BEGIN', 'COMMIT', ...) si bSQL es True
+#     # - suspender la ejecución 'duerme' segundos en el punto adecuado para forzar deadlock
+#     # - ir guardando trazas mediante dbr.append()
     
-    try:
-        # TODO: ejecutar consultas
+#     try:
+#         # TODO: ejecutar consultas
 
-    except Exception as e:
-        # TODO: deshacer en caso de error
+#     except Exception as e:
+#         # TODO: deshacer en caso de error
 
-    else:
-        # TODO: confirmar cambios si todo va bien
+#     else:
+#         # TODO: confirmar cambios si todo va bien
 
         
-    return dbr
+#     return dbr
 

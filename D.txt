@@ -1,7 +1,5 @@
-Sin índices (sólo con explain) el tiempo de ejecución es bastante parecido
-entre ambas queries, en torno a 13 mseg. La que no compara Shipped tarda menos.
+Sin índices el tiempo de ejecución de la primera es 55 mseg y de la segunda 32.
 
 Con el índice en orders.status la query donde se compara el status con Shipped
-tarda alrededor de 120 mseg más que la otra.
-Con analyze ambas tienen un tiempo muy parecido de ejecución de nuevo. En torno
-a 82 mseg.
+tarda lo mismo que sin el índice, pero la otra tarda 13 mseg.
+Con analyze la que compara tarda 61 mseg y la otra unos 14 mseg.
