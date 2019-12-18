@@ -1,38 +1,46 @@
-﻿select count(num)from (select count(*)as num
+﻿select count(total)from (select count(*)as total
 from orders
-where totalamount >=100
-and extract (year from orderdate)=2010 and extract (month from orderdate) =4
-group by extract (year from orderdate),extract (month from orderdate) ,customerid) as a;
+where totalamount >= 200
+and extract (year from orderdate)=2013 and extract (month from orderdate) = 8
+group by extract (year from orderdate), extract (month from orderdate), customerid) as a;
 
-explain select count(num)from (select count(*)as num
+----------------------------------------------------------------------------------------
+
+explain select count(total)from (select count(*)as total
 from orders
-where totalamount >=100
-and extract (year from orderdate)=2010 and extract (month from orderdate) =4
-group by extract (year from orderdate),extract (month from orderdate) ,customerid) as a;
+where totalamount >= 200
+and extract (year from orderdate)=2013 and extract (month from orderdate) = 8
+group by extract (year from orderdate), extract (month from orderdate), customerid) as a;
 
-drop index idx_totalamount;
-create index idx_totalamount on orders(totalamount);
+----------------------------------------------------------------------------------------
 
-explain select count(num)from (select count(*)as num
+drop index index_tamount;
+create index index_tamount on orders(totalamount);
+
+select count(total)from (select count(*)as total
 from orders
-where totalamount >=100
-and extract (year from orderdate)=2010 and extract (month from orderdate) =4
-group by extract (year from orderdate),extract (month from orderdate) ,customerid) as a;
+where totalamount >= 200
+and extract (year from orderdate)=2013 and extract (month from orderdate) = 8
+group by extract (year from orderdate), extract (month from orderdate), customerid) as a;
 
-drop index idx_customerid;
-create index idx_customerid on orders(customerid);
+----------------------------------------------------------------------------------------
 
-explain select count(num)from (select count(*)as num
+drop index index_custid;
+create index index_custid on orders(customerid);
+
+select count(total)from (select count(*)as total
 from orders
-where totalamount >=100
-and extract (year from orderdate)=2010 and extract (month from orderdate) =4
-group by extract (year from orderdate),extract (month from orderdate) ,customerid) as a;
+where totalamount >= 200
+and extract (year from orderdate)=2013 and extract (month from orderdate) = 8
+group by extract (year from orderdate), extract (month from orderdate), customerid) as a;
 
-drop index idx_orderdate;
-create index idx_orderdate on orders(orderdate);
+----------------------------------------------------------------------------------------
 
-explain select count(num)from (select count(*)as num
+drop index index_ordate;
+create index index_ordate on orders(orderdate);
+
+select count(total)from (select count(*)as total
 from orders
-where totalamount >=100
-and extract (year from orderdate)=2010 and extract (month from orderdate) =4
-group by extract (year from orderdate),extract (month from orderdate) ,customerid) as a;
+where totalamount >= 200
+and extract (year from orderdate)=2013 and extract (month from orderdate) = 8
+group by extract (year from orderdate), extract (month from orderdate), customerid) as a;

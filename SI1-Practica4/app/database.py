@@ -17,7 +17,7 @@ def dbCloseConnect(db_conn):
 def getListaCliMes(db_conn, mes, anio, iumbral, iintervalo, use_prepare, break0, niter):
 
     # TODO: implementar la consulta; asignar nombre 'cc' al contador resultante
-    consulta2 = "select count(num) as cc from (select count(*)as num from orders where totalamount >= $1 and extract (year from orderdate)="+str(anio)+" and extract (month from orderdate) ="+str(mes)+" group by extract (year from orderdate),extract (month from orderdate) ,customerid) as a;"
+    consulta2 = "select count(total) as cc from (select count(*)as total from orders where totalamount >= $1 and extract (year from orderdate)="+str(anio)+" and extract (month from orderdate) ="+str(mes)+" group by extract (year from orderdate),extract (month from orderdate) ,customerid) as a;"
     
     # TODO: ejecutar la consulta 
     # - mediante PREPARE, EXECUTE, DEALLOCATE si use_prepare es True
@@ -37,7 +37,7 @@ def getListaCliMes(db_conn, mes, anio, iumbral, iintervalo, use_prepare, break0,
             resultado = db_conn.execute("execute getLClimes("+str(iumbral)+")")
 
         else:
-            consulta = "select count(num) as cc from (select count(*)as num from orders where totalamount >="+str(iumbral)+" and extract (year from orderdate)="+str(anio)+" and extract (month from orderdate) ="+str(mes)+" group by extract (year from orderdate),extract (month from orderdate) ,customerid) as a;"
+            consulta = "select count(total) as cc from (select count(*)as total from orders where totalamount >="+str(iumbral)+" and extract (year from orderdate)="+str(anio)+" and extract (month from orderdate) ="+str(mes)+" group by extract (year from orderdate),extract (month from orderdate) ,customerid) as a;"
             resultado = db_conn.execute(consulta)
         
         res = resultado.fetchall()[0][0]
