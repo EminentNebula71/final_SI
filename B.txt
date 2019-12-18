@@ -1,0 +1,6 @@
+primero creamos la consulta que usaremos en la variable consulta2, la cual
+usaremos en caso de que use_prepare sea true y haya que usar prepare, execute y deallocate.
+si este es el caso, dentro del bucle for se vuelve a comprobar el use_prepare y se utiliza el execute adecuadamente.
+Si no es true usaremos otra versión de la query (que da los mismos resultados) que se adecua
+a no usar prepare. Sea cual sea el caso, si se dejan de cumplir alguna de las condiciones se acabará
+el bucle y se hará deallocate.

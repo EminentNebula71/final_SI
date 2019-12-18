@@ -52,7 +52,7 @@ def getListaCliMes(db_conn, mes, anio, iumbral, iintervalo, use_prepare, break0,
         # Actualizacion de umbral
         iumbral = iumbral + iintervalo
     if use_prepare is True:
-        resultado = db_conn.execute("dealocate getLClimes")
+        resultado = db_conn.execute("deallocate getLClimes")
             
     return dbr
 

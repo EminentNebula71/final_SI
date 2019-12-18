@@ -1,0 +1,12 @@
+Si se quiere acceder a la página únicamente conociendo el nombre de usuario, hay que tener en cuenta que en la query escribimos los datos que queremos comprobar entre comillas simples. Por lo tanto, si al introducir un usuario existente escribimos al final una comilla simple y un comienzo de comentario la query acabaría antes de introducir la contraseña y nos daría acceso a la página.
+
+Para el usuario gastby se introduciría: gatsby'--
+
+Con esto la query que se ejecutaría sería: select * from customers where username='gatsby'--' and password=''
+
+
+Si queremos entrar a la página sin saber ni el nombre de usuario ni la contraseña, el procedimiento sería similar al anterior. En este caso en la casilla donde se escribiría el nombre de usuario escribimos lo siguiente: ' or true--
+
+La query final sería: select * from customers where username='' or true-- and password=''
+
+Esta query siempre detectaría true por lo que siempre se garantizaría el acceso a la página.
